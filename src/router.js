@@ -9,6 +9,9 @@ import QuestionIndex from '@/views/Question/index.vue'
 import Login from '@/views/User/login.vue'
 import Register from '@/views/User/register.vue'
 
+// 用户个人中心
+import User from '@/views/User/index.vue'
+
 // 404视图
 // import Error404 from '@/views/Error/404.vue'
 
@@ -31,6 +34,10 @@ export default new Router({
     // 登录
     {path: '/User/login',name: 'login',component: Login}, 
     {path: '/User/register',name: 'register',component: Register}, 
+
+    // 用户个人中心
+    {path: '/User/index',name: 'user_index',component: User}, 
+
 
     // 登录
     // {path: '/Admin/login',name: 'login',component: Login},

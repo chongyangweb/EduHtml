@@ -52,7 +52,7 @@
 .login_input .van-cell:not(:last-child)::after{border-bottom:1px solid #efefef;}*/
 .login_top{background: url(../../assets/login_pic.jpg);background-size:100%;background-position:center top;height: 230px;}
 .login_top .van-icon{color:#fff;font-size: 16px;line-height: 3rem;margin-left: 1rem;float:left;margin-right: 0.5rem;font-weight: normal;}
-.login_left_arrow{color:#fff;line-height: 3rem;font-size: 14px;}
+.login_left_arrow{color:#fff;line-height: 3.2rem;font-size: 14px;}
 .login_top_title{color:#fff;font-size: 22px;text-align: center;margin-top: 1.45rem;font-weight: bold;}
 .login_top_title p{font-size: 12px;font-weight: normal;line-height: 20px;padding: 0;margin:5px;}
 .login_content{background:#fff; display: block;width: 90%;margin: -4rem auto 0 auto;border-radius: 3px;border:1px solid #f1f1f1;}
