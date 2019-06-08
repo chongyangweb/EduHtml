@@ -5,6 +5,10 @@ import Index from '@/views/index.vue'
 
 import QuestionIndex from '@/views/Question/index.vue'
 
+// 登录
+import Login from '@/views/User/login.vue'
+import Register from '@/views/User/register.vue'
+
 // 404视图
 // import Error404 from '@/views/Error/404.vue'
 
@@ -22,7 +26,12 @@ export default new Router({
     // 404 page must be placed at the end !!!
     // {path: '*', redirect: '/404', hidden: true },
     // {path: '/404',name: '404',component: Error404},
-    {path: '/Question/index',name: 'question_index',component: QuestionIndex},
+    {path: '/question/index',name: 'question_index',component: QuestionIndex},
+
+    // 登录
+    {path: '/User/login',name: 'login',component: Login}, 
+    {path: '/User/register',name: 'register',component: Register}, 
+
     // 登录
     // {path: '/Admin/login',name: 'login',component: Login},
         

@@ -16,6 +16,7 @@ RadioGroup,
 Radio,
 Checkbox, 
 CheckboxGroup,
+Field,
 } from 'vant';
 Vue.use(Button);
 Vue.use(Cell);
@@ -33,3 +34,4 @@ Vue.use(RadioGroup);
 Vue.use(Radio);
 Vue.use(Checkbox);
 Vue.use(CheckboxGroup);
+Vue.use(Field);

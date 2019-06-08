@@ -17,12 +17,15 @@
 
 			<div class="question_answer">
 				<van-checkbox v-model="checked" checked-color="#07c160">复选框</van-checkbox>
+				<van-checkbox v-model="checked" checked-color="#07c160">复选框</van-checkbox>
+				<van-checkbox v-model="checked" checked-color="#07c160">复选框</van-checkbox>
+				<van-checkbox v-model="checked" checked-color="#07c160">复选框</van-checkbox>
 			</div>
 		</div>
 
 		<div class="question_foot">
 			<div class="question_num"><i class="iconfont">&#xeba6;</i>12/45</div>
-			<div class="question_next">下一题</div>
+			<div class="question_next">答题解析</div>
 		</div>
 		
 	</div>
