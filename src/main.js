@@ -27,7 +27,7 @@ Vue.filter('formatDataAuto', function ([time,str]) {
     return formatDate(date, str);
 });
 
-Vue.prototype.ROOT_URL = 'http://hgadmins.com/api/';
+Vue.prototype.ROOT_URL = 'http://s.qingwuit.com/api/';
 
 Vue.config.productionTip = false
 

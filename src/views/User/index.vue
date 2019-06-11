@@ -6,7 +6,7 @@
 				<div class="person_center">个人中心</div>
 				<div class="person_left_arrow">
 					<van-icon name="arrow-left" />
-					<div class="login_left_arrow">返回</div>
+					<div class="login_left_arrow"  @click="$router.go(-1)">返回</div>
 				</div>
 			</div>
 			<div class="person_avatar">

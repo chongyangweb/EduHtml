@@ -8,6 +8,8 @@ import QuestionIndex from '@/views/Question/index.vue'
 // 登录
 import Login from '@/views/User/login.vue'
 import Register from '@/views/User/register.vue'
+import WechatLogin from '@/views/User/wechat_login.vue'
+
 
 // 用户个人中心
 import User from '@/views/User/index.vue'
@@ -32,14 +34,16 @@ export default new Router({
     {path: '/question/index',name: 'question_index',component: QuestionIndex},
 
     // 登录
-    {path: '/User/login',name: 'login',component: Login}, 
-    {path: '/User/register',name: 'register',component: Register}, 
+    {path: '/user/login',name: 'login',component: Login}, 
+    {path: '/user/register',name: 'register',component: Register}, 
 
     // 用户个人中心
-    {path: '/User/index',name: 'user_index',component: User}, 
+    {path: '/user/index',name: 'user_index',component: User}, 
+
 
 
     // 登录
+    {path: '/user/wechat/login/:openid',name: 'wechat_login',component: WechatLogin},// 微信登陆
     // {path: '/Admin/login',name: 'login',component: Login},
         
   ]

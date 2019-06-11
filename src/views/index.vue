@@ -1,7 +1,7 @@
 <template>
 	<div class="edu">
 		<div class="index_top_nav">
-			<van-search placeholder="请输入搜索关键词" v-model="value" />
+			<van-search placeholder="请输入搜索关键词" v-model="search" />
 		</div>
 		<!-- <div class="xian4 index_xian4_mt"></div> -->
 		<div class="index_content">
@@ -13,14 +13,31 @@
 			<div class="start_study"><van-button type="primary">开始学习</van-button></div>
 		</div>
 
-		<van-tabbar v-model="active" active-color="#07c160">
-		  <van-tabbar-item icon="home-o">标签</van-tabbar-item>
-		  <van-tabbar-item icon="search">标签</van-tabbar-item>
-		  <van-tabbar-item icon="friends-o">标签</van-tabbar-item>
-		  <van-tabbar-item icon="setting-o">标签</van-tabbar-item>
+		<van-tabbar v-model="active" active-color="#07c160" route @change="barChange">
+		  <van-tabbar-item icon="home-o" to="/">首页</van-tabbar-item>
+		  <van-tabbar-item icon="smile-comment-o">校言</van-tabbar-item>
+		  <van-tabbar-item icon="friends-o" to="/user/index">我的</van-tabbar-item>
 		</van-tabbar>
 	</div>
 </template>
+
+<script>
+	export default {
+		data(){
+			return{
+				search:'',
+				active:0,
+			}
+		},
+		methods:{
+			barChange:function(e){
+				if(e==1){
+					this.$toast('暂时没有开放！');
+				}
+			},
+		},
+	};
+</script>
 
 <style>
 /*#07c160;*/
