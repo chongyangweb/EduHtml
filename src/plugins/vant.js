@@ -17,6 +17,10 @@ Radio,
 Checkbox, 
 CheckboxGroup,
 Field,
+Popup,
+Picker,
+Stepper,
+Actionsheet,
 } from 'vant';
 Vue.use(Button);
 Vue.use(Cell);
@@ -35,3 +39,7 @@ Vue.use(Radio);
 Vue.use(Checkbox);
 Vue.use(CheckboxGroup);
 Vue.use(Field);
+Vue.use(Popup);
+Vue.use(Picker);
+Vue.use(Stepper);
+Vue.use(Actionsheet);

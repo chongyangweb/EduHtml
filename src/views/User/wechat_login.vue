@@ -29,18 +29,19 @@
 			}
 		},
 		mounted(){
-			this.$toast.loading({
-			  mask: this.is_open,
-			  duration:0,
-			  message: '微信登陆中...'
-			});
+			
 
 			var _this = this;
 			var openid = this.$route.params.openid;
 	    	this.$post(this.ROOT_URL + "Edu/wechat/getLogin",{username:openid.substr(0,15),password:openid}).then(function(res){
+	    		var toast1  = _this.$toast.loading({
+				  mask: _this.is_open,
+				  duration:0,
+				  message: '微信登陆中...'
+				});
 	    		if(res.code == 200){
 	    			localStorage.setItem('edu_token',res.token);
-	    			_this.is_open = false;
+	    			toast1.clear();
 	    			_this.$router.push({name:'home'});
 	    		}
 	    	});

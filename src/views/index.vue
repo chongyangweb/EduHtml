@@ -6,9 +6,9 @@
 		<!-- <div class="xian4 index_xian4_mt"></div> -->
 		<div class="index_content">
 			<div class="study_time">STUDY TIME<p>学习打卡记录</p></div>
-			<div class="study_day">2</div>
+			<div class="study_day">{{count}}</div>
 			<div class="study_day_day">天</div>
-			<div class="index_notice"><i class="iconfont">&#xe600;</i>今天还有任务(未完成)</div>
+			<div class="index_notice"><div v-show="today"><i class="iconfont">&#xe693;</i>今天练题过了(完成)</div><div v-show="!today"><i class="iconfont">&#xe600;</i>今天没有练题(未完成)</div></div>
 			<div class="xian4 index_xian4_mt"></div>
 			<div class="start_study"><van-button type="primary">开始学习</van-button></div>
 		</div>
@@ -27,6 +27,8 @@
 			return{
 				search:'',
 				active:0,
+				count:0,
+				today:false,
 			}
 		},
 		methods:{
@@ -36,6 +38,14 @@
 				}
 			},
 		},
+		mounted(){
+			var _this = this;
+			this.$get(this.ROOT_URL + "Edu/index/getSign").then(function(res){
+				_this.count = res.data.count;
+				_this.today = res.data.today;
+				// console.log(res);
+			});
+		},
 	};
 </script>
 
@@ -43,7 +53,8 @@
 /*#07c160;*/
 .index_top_nav{height: 3.35rem;position: fixed;z-index: 2;top:0;left:0;display: block;width: 100%;line-height: 3.25rem;color:#333;font-size: 16px;background: #f1f1f1;border-bottom: 1px solid #efefef;}
 .index_xian4_mt{margin-top: 2.25rem;}
-.index_content{margin-top: 3.25rem;}
+.index_content{margin-top: 3.25rem;background: #fff;}
+.index_content:after{content:'';display:block;clear: both;}
 .study_time{font-size: 1.75rem;color:#111;font-weight: bold;text-align: center;padding-top: 2.25rem;}
 .study_time p{font-size:12px;color:#666;font-weight: normal;}
 .study_day{font-size: 4rem;text-align: center;color:#333;line-height: 6rem;}

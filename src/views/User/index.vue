@@ -10,11 +10,11 @@
 				</div>
 			</div>
 			<div class="person_avatar">
-				<img src="../../assets/avatar.jpg" alt="" >
+				<img :src="user_info.avatar" alt="" >
 			</div>
 			<div class="person_info">
-				<div class="person_nickname">重阳2019<i class="iconfont">&#xe68e;</i></div>
-				<div class="person_id">ID:001</div>
+				<div class="person_nickname">{{user_info.nickname}}<i class="iconfont">&#xe68e;</i></div>
+				<div class="person_id">ID:{{user_info.id}}</div>
 			</div>
 		</div>
 		<div class="person_cat">
@@ -41,12 +41,12 @@
 		<div class="xian4"></div>
 
 		<div class="person_other">
-			<van-cell title="书币" is-link value="12点" />
-			<van-cell title="等级" is-link value="lv9 ·普通用户" />
+			<van-cell title="书币" is-link :value="user_extend.money+' 点'" />
+			<van-cell title="等级" is-link :value="'lv'+user_extend.lev+ '·普通用户'" />
 			<van-cell title="当前花名" is-link value="李太白" />
 			<van-cell title="错题集锦" is-link  />
 			<van-cell title="老师推荐" is-link  />
-			<van-cell title="学习范围设置" is-link />
+			<van-cell title="学习范围设置" is-link url="/user/learning_scope" />
 		</div>
 		
 		<div class="xian4"></div>
@@ -57,8 +57,36 @@
 		<div class="person_other_one">
 			<van-button plain type="danger">退出账号</van-button>
 		</div>
+
 	</div>
 </template>
+
+<script>
+	export default {
+		data(){
+			return{
+				user_info:{},
+				user_extend:{},
+				avatar:'',
+				
+			}
+		},
+		method:{
+			
+		},
+		mounted(){
+			var _this = this;
+			this.$get(this.ROOT_URL + "Edu/user/get_user_info").then(function(res){
+				if(res.code == 200){
+					_this.user_info = res.data;
+					_this.user_extend = res.data.extend;
+					_this.avatar = res.data.avatar;
+				}
+			});
+
+		},
+	};
+</script>
 
 <style>
 .person_bg{background: #07c160;height: 11rem;}
@@ -78,5 +106,5 @@
 .person_cat .van-col--6:nth-child(4){border-right: none;}
 .person_cat .van-col--6:active{background: #eee;}
 .person_cat i{font-size: 1.6rem;}
-.person_other_one .van-button{width: 90%;margin:0 auto;display: block;margin-top: 1rem;}
+.person_other_one .van-button{width: 90%;margin:0 auto 2rem auto;display: block;margin-top: 1rem;}
 </style>

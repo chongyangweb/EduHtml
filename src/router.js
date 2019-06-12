@@ -10,6 +10,9 @@ import Login from '@/views/User/login.vue'
 import Register from '@/views/User/register.vue'
 import WechatLogin from '@/views/User/wechat_login.vue'
 
+// 设置学习范围
+import LearningScope from '@/views/User/learning_scope.vue'
+
 
 // 用户个人中心
 import User from '@/views/User/index.vue'
@@ -39,6 +42,7 @@ export default new Router({
 
     // 用户个人中心
     {path: '/user/index',name: 'user_index',component: User}, 
+    {path: '/user/learning_scope',name: 'user_learning_scope',component: LearningScope}, // 设置学习范围
 
 
 
