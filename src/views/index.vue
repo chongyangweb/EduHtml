@@ -39,12 +39,19 @@
 			},
 		},
 		mounted(){
-			var _this = this;
-			this.$get(this.ROOT_URL + "Edu/index/getSign").then(function(res){
-				_this.count = res.data.count;
-				_this.today = res.data.today;
-				// console.log(res);
-			});
+			var token = localStorage.getItem('edu_token');
+      		var isLogin = false;
+      		if(!this.$isEmpty(token)){
+		        isLogin = true;
+		    }
+			if(isLogin){
+				var _this = this;
+				this.$get(this.ROOT_URL + "Edu/index/getSign").then(function(res){
+					_this.count = res.data.count;
+					_this.today = res.data.today;
+					// console.log(res);
+				});
+			}
 		},
 	};
 </script>
