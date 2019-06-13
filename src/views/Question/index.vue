@@ -18,23 +18,29 @@
 				{{question.title}}
 			</div>
 
-			<div class="question_answer">
-				<van-checkbox-group v-model="result">
+			<div class="question_answer" >
+				<van-checkbox-group v-model="result" @change="checkbox_group_change" v-if="chose_type>1">
 				  <van-checkbox 
 				    v-for="(item, index) in answer"
 				    :key="item.id"
 				    :name="item.id"
 				    checked-color="#07c160"
+				    :disabled="is_disabled"
 				  >
 				    {{index+1}}、 {{ item.title }}
 				  </van-checkbox>
 				</van-checkbox-group>
+
+				<van-radio-group v-model="radio" v-if="chose_type==1" @change="checkbox_group_change">
+				  <van-radio :disabled="is_disabled" v-for="(v,k) in answer" :name="v.id" checked-color="#07c160">{{k+1}}、{{v.title}}</van-radio>
+				</van-radio-group>
 			</div>
 		</div>
 
 		<div class="question_foot">
 			<div class="question_num"><i class="iconfont">&#xeba6;</i>{{sort_now}}/{{question_num}}</div>
-			<div class="question_next">确认</div>
+			<div class="question_next" @click="confirm_question" v-show="is_confirm_question">确认</div>
+			<div class="question_next" @click="next_question" v-show="!is_confirm_question">下一题</div>
 		</div>
 		
 	</div>
@@ -54,12 +60,65 @@
 				error_num:0,
 				sort_now:0,
 				question_num:0,
+				radio:null,
+				is_error:0,
+				is_confirm_question:true,
+				is_disabled:false,
 
 			}
 		},
 		methods:{
 			onClickRight:function(){
 				this.$toast('没有开放');
+			},
+			checkbox_group_change:function(e){
+				// console.log(Array.isArray(e));
+				// console.log(Array.isArray(this.result));
+				if(!Array.isArray(e)){
+					this.result.push(e);
+				}
+
+			},
+			confirm_question:function(){
+				var real_answer = [];
+				for(var i=0;i<this.answer.length;i++){
+					if(this.answer[i].is_answer == 1){
+						real_answer.push(this.answer[i].id);
+					}
+				}
+
+				var is_true_question=0;
+				for(var i=0;i<real_answer.length;i++){
+					for(var a=0;a<this.result.length;a++){
+						console.log(real_answer[i],this.result[a])
+						if(real_answer[i] == this.result[a]){
+							is_true_question = is_true_question+1;
+						}
+					}
+				}
+				
+				// console.log(is_true_question,real_answer.length);
+				if(is_true_question != real_answer.length){
+					this.is_error = 1;
+				}
+
+				if(this.is_error == 1){
+					this.$toast('失败！');
+				}else{
+					this.$toast('成功了！');
+				}
+
+				this.is_confirm_question = false;
+				this.is_disabled = true;
+				
+				
+			},
+			next_question:function(){
+				var sort_now = localStorage.getItem('sort_now');
+				var error_num = localStorage.getItem('error_num');
+				localStorage.setItem('sort_now',parseInt(sort_now)+1);
+				localStorage.setItem('error_num',parseInt(error_num)+parseInt(this.is_error));
+				this.$router.go(0);
 			}
 		},
 		mounted(){
@@ -109,4 +168,5 @@
 .question_num i{margin-right: 0.25rem;margin-left: 1rem;}
 .question_next{float: right;line-height: 3.25rem;background: #07c160;color:#fff;padding: 0 3rem;font-size: 14px;}
 .question_content .van-checkbox{margin-bottom: 1.3rem;}
+.question_content .van-radio{margin-bottom: 1.3rem;}
 </style>
