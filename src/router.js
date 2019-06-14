@@ -19,6 +19,9 @@ import QuestionSuccess from '@/views/Question/question_success.vue'
 // 用户个人中心
 import User from '@/views/User/index.vue'
 
+// 试卷中心
+import Paper from '@/views/Paper/index.vue'
+
 // 404视图
 // import Error404 from '@/views/Error/404.vue'
 
@@ -46,6 +49,9 @@ export default new Router({
     // 用户个人中心
     {path: '/user/index',name: 'user_index',component: User}, 
     {path: '/user/learning_scope',name: 'user_learning_scope',component: LearningScope}, // 设置学习范围
+
+    // 试卷中心
+    {path: '/paper/index',name: 'paper_index',component: Paper}, // 试卷中心
 
 
 

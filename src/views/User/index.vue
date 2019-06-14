@@ -28,8 +28,10 @@
                   	<p>班级</p>
               </van-col>
               <van-col span="6">
+              		<div @click="$router.push({path:'/paper/index'})">
 			  		<i class="icon iconfont">&#xe621;</i>
                   	<p>试卷</p>
+                  	</div>
               </van-col>
               <van-col span="6">
 			  		<i class="icon iconfont">&#xe6cf;</i>
