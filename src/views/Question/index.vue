@@ -80,6 +80,7 @@
 
 			},
 			confirm_question:function(){
+				var _this = this;
 				var real_answer = [];
 				for(var i=0;i<this.answer.length;i++){
 					if(this.answer[i].is_answer == 1){
@@ -103,6 +104,7 @@
 				}
 
 				if(this.is_error == 1){
+					
 					this.$toast('失败！');
 				}else{
 					this.$toast('成功了！');
@@ -118,7 +120,16 @@
 				var error_num = localStorage.getItem('error_num');
 				localStorage.setItem('sort_now',parseInt(sort_now)+1);
 				localStorage.setItem('error_num',parseInt(error_num)+parseInt(this.is_error));
-				this.$router.go(0);
+
+				// 加入错题本
+				this.$post(this.ROOT_URL + "Edu/question/add_error_question",{question_id:this.question.id}).then(function(res){});
+
+				if(this.question_num == localStorage.getItem('sort_now')){
+					this.$router.push({path:'/question/question_success'});
+				}else{
+					this.$router.go(0);
+				}
+				
 			}
 		},
 		mounted(){
@@ -132,9 +143,11 @@
 				sort_now = 0;
 			}
 
+			this.sort_now = sort_now;
+
 			var _this = this;
 
-			this.$post(this.ROOT_URL + "Edu/question/getQuestion",{sort_now:sort_now}).then(function(res){
+			this.$post(this.ROOT_URL + "Edu/question/getQuestion",{sort_now:sort_now,error_num:error_num}).then(function(res){
 				console.log(res);
 				if(res.code == 500){
 					_this.$toast({position:'bottom',message:res.message});
@@ -149,6 +162,9 @@
 							_this.chose_type = _this.chose_type+1;
 						}
 					}
+				}else if(res.code == 201){
+					_this.$toast('恭喜您，刷完所有题目，获得新的成就！');
+					_this.$router.push({path:'/'});
 				}
 			});
 			

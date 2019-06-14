@@ -13,6 +13,8 @@ import WechatLogin from '@/views/User/wechat_login.vue'
 // 设置学习范围
 import LearningScope from '@/views/User/learning_scope.vue'
 
+// 答题成功
+import QuestionSuccess from '@/views/Question/question_success.vue'
 
 // 用户个人中心
 import User from '@/views/User/index.vue'
@@ -35,6 +37,7 @@ export default new Router({
     // {path: '*', redirect: '/404', hidden: true },
     // {path: '/404',name: '404',component: Error404},
     {path: '/question/index',name: 'question_index',component: QuestionIndex},
+    {path: '/question/question_success',name: 'question_success_index',component: QuestionSuccess},
 
     // 登录
     {path: '/user/login',name: 'login',component: Login}, 

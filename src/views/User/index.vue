@@ -41,7 +41,7 @@
 		<div class="xian4"></div>
 
 		<div class="person_other">
-			<van-cell title="书币" is-link :value="user_extend.money+' 点'" />
+			<van-cell title="活跃度" is-link :value="user_extend.money+' 点'" />
 			<van-cell title="等级" is-link :value="'lv'+user_extend.lev+ '·普通用户'" />
 			<van-cell title="当前花名" is-link value="李太白" />
 			<van-cell title="错题集锦" is-link  />
