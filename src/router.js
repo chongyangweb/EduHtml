@@ -4,6 +4,7 @@ import Router from 'vue-router'
 import Index from '@/views/index.vue'
 
 import QuestionIndex from '@/views/Question/index.vue'
+import QuestionError from '@/views/Question/question_error.vue' // 错题答题
 
 // 登录
 import Login from '@/views/User/login.vue'
@@ -39,7 +40,8 @@ export default new Router({
     // 404 page must be placed at the end !!!
     // {path: '*', redirect: '/404', hidden: true },
     // {path: '/404',name: '404',component: Error404},
-    {path: '/question/index',name: 'question_index',component: QuestionIndex},
+    {path: '/question/index',name: 'question_index',component: QuestionIndex}, // 正常答题
+    {path: '/question/question_error',name: 'question_error_index',component: QuestionError}, // 错题答题
     {path: '/question/question_success',name: 'question_success_index',component: QuestionSuccess},
 
     // 登录

@@ -20,22 +20,28 @@
 		<div class="person_cat">
 			<van-row>
 			  <van-col span="6">
+			  		<div @click="$toast('暂未开通')">
 			  		<i class="icon iconfont">&#xe747;</i>
                   	<p>钱包</p>
+                  	</div>
               </van-col>
               <van-col span="6">
+              		<div @click="$toast('暂未开通')">
 			  		<i class="icon iconfont">&#xe676;</i>
                   	<p>班级</p>
+                  	</div>
               </van-col>
               <van-col span="6">
-              		<div @click="$router.push({path:'/paper/index'})">
+              		<div @click="$toast('暂未开通')">
 			  		<i class="icon iconfont">&#xe621;</i>
                   	<p>试卷</p>
                   	</div>
               </van-col>
               <van-col span="6">
+              		<div @click="$toast('暂未开通')">
 			  		<i class="icon iconfont">&#xe6cf;</i>
                   	<p>收藏</p>
+                  	</div>
               </van-col>
 
 			</van-row>
@@ -46,7 +52,7 @@
 			<van-cell title="活跃度" is-link :value="user_extend.money+' 点'" />
 			<van-cell title="等级" is-link :value="'lv'+user_extend.lev+ '·普通用户'" />
 			<van-cell title="当前花名" is-link value="李太白" />
-			<van-cell title="错题集锦" is-link  />
+			<van-cell title="错题集锦" is-link  :value="error_question_num+' 道'" @click="make_error_question" />
 			<van-cell title="老师推荐" is-link  />
 			<van-cell title="学习范围设置" is-link url="/user/learning_scope" />
 		</div>
@@ -57,7 +63,7 @@
 		</div>
 		<div class="xian4"></div>
 		<div class="person_other_one">
-			<van-button plain type="danger">退出账号</van-button>
+			<van-button plain type="danger" @click="$toast('微信无法退出账号')">退出账号</van-button>
 		</div>
 
 	</div>
@@ -70,11 +76,22 @@
 				user_info:{},
 				user_extend:{},
 				avatar:'',
+				error_question_num:0,
 				
 			}
 		},
-		method:{
-			
+		methods:{
+			make_error_question:function(){
+				this.$dialog.confirm({
+				  title: '温馨提示',
+				  message: '你确定要重新将错题做一遍？'
+				}).then(() => {
+				  // on confirm
+				  
+				}).catch(() => {
+				  // on cancel
+				});
+			},
 		},
 		mounted(){
 			var _this = this;
@@ -83,6 +100,7 @@
 					_this.user_info = res.data;
 					_this.user_extend = res.data.extend;
 					_this.avatar = res.data.avatar;
+					_this.error_question_num = _this.user_extend.error_question.split(',').length;
 				}
 			});
 

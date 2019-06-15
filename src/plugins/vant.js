@@ -22,6 +22,7 @@ Picker,
 Stepper,
 Actionsheet,
 Card,
+Dialog,
 } from 'vant';
 Vue.use(Button);
 Vue.use(Cell);
@@ -45,3 +46,4 @@ Vue.use(Picker);
 Vue.use(Stepper);
 Vue.use(Actionsheet);
 Vue.use(Card);
+Vue.use(Dialog);

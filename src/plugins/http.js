@@ -59,7 +59,7 @@ axios.interceptors.response.use(function (res) {
 
     // 存在状态码
     if (err.response.status) {
-      // console.log(err.response);
+      console.log(err.response);
       switch(err.response.status){
         case 422:
           for(var v in err.response.data.errors){
@@ -79,7 +79,15 @@ axios.interceptors.response.use(function (res) {
             Toast(err.response.statusText+",Code："+err.response.status+"！");
           }
           break;
-
+        case 500:
+          // console.log(err.response);
+          // token 失效
+          if(err.response.data.message == 'Token has expired'){
+            localStorage.removeItem('edu_token');
+          }else{
+            Toast(err.response.statusText+",Code："+err.response.status+"！");
+          }
+          break;
         default:
           Toast(err.response.statusText+",Code："+err.response.status+"！");
           break;

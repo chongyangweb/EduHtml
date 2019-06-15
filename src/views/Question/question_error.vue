@@ -110,9 +110,9 @@
 
 				if(this.is_error == 1){
 					
-					this.$toast('错了！');
+					this.$toast('失败！');
 				}else{
-					this.$toast('对了！');
+					this.$toast('成功了！');
 				}
 
 				this.is_confirm_question = false;
