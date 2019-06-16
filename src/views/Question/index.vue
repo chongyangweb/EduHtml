@@ -30,12 +30,12 @@
 				    checked-color="#07c160"
 				    :disabled="is_disabled"
 				  >
-				    {{index+1}}、 {{ item.title }}
+				    {{$choseWord(index)}}、 {{ item.title }}
 				  </van-checkbox>
 				</van-checkbox-group>
 
 				<van-radio-group v-model="radio" v-if="chose_type==1" @change="checkbox_group_change">
-				  <van-radio :disabled="is_disabled" v-for="(v,k) in answer" :name="v.id" checked-color="#07c160">{{k+1}}、{{v.title}}</van-radio>
+				  <van-radio :disabled="is_disabled" v-for="(v,k) in answer" :name="v.id" checked-color="#07c160">{{$choseWord(k)}}、{{v.title}}</van-radio>
 				</van-radio-group>
 			</div>
 		</div>
@@ -45,6 +45,11 @@
 			<div class="question_next" @click="confirm_question" v-show="is_confirm_question">确认</div>
 			<div class="question_next" @click="next_question" v-show="!is_confirm_question">下一题</div>
 		</div>
+
+		<!-- 答案解析 -->
+		<van-actionsheet v-model="analysis_show" title="答题解析">
+		  <p style="padding:1rem;" v-html="question.analysis"></p>
+		</van-actionsheet>
 		
 	</div>
 </template>
@@ -55,6 +60,7 @@
 			return{
 				title:'题目练习',
 				checked:false,
+				analysis_show:false,
 				list: [],
 				question:{},
 				answer:[],
@@ -74,7 +80,7 @@
 		},
 		methods:{
 			onClickRight:function(){
-				this.$toast('没有开放');
+				this.analysis_show=true;
 			},
 			checkbox_group_change:function(e){
 				// console.log(Array.isArray(e));
@@ -127,7 +133,9 @@
 				localStorage.setItem('error_num',parseInt(error_num)+parseInt(this.is_error));
 
 				// 加入错题本
-				this.$post(this.ROOT_URL + "Edu/question/add_error_question",{question_id:this.question.id}).then(function(res){});
+				if(this.is_error==1){
+					this.$post(this.ROOT_URL + "Edu/question/add_error_question",{question_id:this.question.id}).then(function(res){});
+				}
 
 				if(this.question_num == localStorage.getItem('sort_now')){
 					this.$router.push({path:'/question/question_success'});
@@ -188,8 +196,8 @@
 .question_type{margin-right: 0.25rem;font-size: 12px;color:#fff;background: #07c160;display: inline-block;padding: 0.1rem 0.25rem;line-height: 18px;border-radius: 3px;float: left;margin-top: 0.25rem;}
 .question_content{padding: 0 1rem;margin-top: 1rem;}
 .question_title{font-size: 16px;line-height: 2rem;}
-.question_answer{margin-top: 2rem;}
-.question_foot{position: fixed;bottom: 0;width: 100%;height: 3.25rem;border-top: 1px solid #efefef;}
+.question_answer{margin-top: 2rem;margin-bottom: 5rem;}
+.question_foot{position: fixed;bottom: 0;width: 100%;height: 3.25rem;border-top: 1px solid #efefef;background: #fff;}
 .question_num{float: left;line-height: 3.25rem;font-size: 16px;color:#333;}
 .question_num i{margin-right: 0.25rem;margin-left: 1rem;}
 .question_next{float: right;line-height: 3.25rem;background: #07c160;color:#fff;padding: 0 3rem;font-size: 14px;}

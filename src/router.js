@@ -16,12 +16,20 @@ import LearningScope from '@/views/User/learning_scope.vue'
 
 // 答题成功
 import QuestionSuccess from '@/views/Question/question_success.vue'
+import QuestionErrorSuccess from '@/views/Question/question_error_success.vue'
 
 // 用户个人中心
 import User from '@/views/User/index.vue'
 
 // 试卷中心
 import Paper from '@/views/Paper/index.vue'
+
+// 商品列表
+import GoodsList from '@/views/Shop/index.vue'
+import GoodsInfo from '@/views/Shop/goods_info.vue'
+import Address from '@/views/User/address.vue'
+import AddAddress from '@/views/User/add_address.vue'
+import Order from '@/views/Shop/order.vue'
 
 // 404视图
 // import Error404 from '@/views/Error/404.vue'
@@ -43,6 +51,7 @@ export default new Router({
     {path: '/question/index',name: 'question_index',component: QuestionIndex}, // 正常答题
     {path: '/question/question_error',name: 'question_error_index',component: QuestionError}, // 错题答题
     {path: '/question/question_success',name: 'question_success_index',component: QuestionSuccess},
+    {path: '/question/question_error_success',name: 'question_error_success_index',component: QuestionErrorSuccess},
 
     // 登录
     {path: '/user/login',name: 'login',component: Login}, 
@@ -54,6 +63,13 @@ export default new Router({
 
     // 试卷中心
     {path: '/paper/index',name: 'paper_index',component: Paper}, // 试卷中心
+
+    // 商品列表
+    {path: '/shop/index/:dealer',name: 'shop_index',component: GoodsList}, 
+    {path: '/shop/goods_info/:id',name: 'shop_goods_info',component: GoodsInfo}, 
+    {path: '/shop/address',name: 'address',component: Address}, 
+    {path: '/shop/add_address',name: 'add_address',component: AddAddress}, 
+    {path: '/shop/order',name: 'shop_order',component: Order}, 
 
 
 

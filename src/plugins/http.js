@@ -84,6 +84,7 @@ axios.interceptors.response.use(function (res) {
           // token 失效
           if(err.response.data.message == 'Token has expired'){
             localStorage.removeItem('edu_token');
+            location.reload();
           }else{
             Toast(err.response.statusText+",Code："+err.response.status+"！");
           }
@@ -189,4 +190,27 @@ export function isWeiXin() {
   return false;
   }
 }
+
+export function choseWord(e) {
+  switch(e){
+    case 0:
+      return 'A';
+      break;
+    case 1:
+      return 'B';
+      break;
+    case 2:
+      return 'C';
+      break;
+    case 3:
+      return 'D';
+      break;
+    case 4:
+      return 'E';
+      break;
+    case 5:
+      return 'F';
+      break;
+  }
+} 
  //Vue.use(axios)

@@ -1,7 +1,7 @@
 <template>
 	<div class="edu">
 		<div class="index_top_nav">
-			<van-search placeholder="请输入搜索关键词" v-model="search" />
+			<van-search placeholder="请输入搜索关键词（输入也没用）" v-model="search" />
 		</div>
 		<!-- <div class="xian4 index_xian4_mt"></div> -->
 		<div class="index_content">
@@ -11,6 +11,7 @@
 			<div class="index_notice"><div v-show="today"><i class="iconfont">&#xe693;</i>今天练题过了(完成)</div><div v-show="!today"><i class="iconfont">&#xe600;</i>今天没有练题(未完成)</div></div>
 			<div class="xian4 index_xian4_mt"></div>
 			<div class="start_study"><van-button type="primary" @click="$router.push({path:'/question/index'})">开始学习</van-button></div>
+			<div class="to_learing" @click="$router.push({path:'/user/learning_scope'})">学习范围设置-{{grade}}-{{subject}}</div>
 		</div>
 
 		<van-tabbar v-model="active" active-color="#07c160" route @change="barChange">
@@ -29,6 +30,8 @@
 				active:0,
 				count:0,
 				today:false,
+				grade:'其他',
+				subject:'其他',
 			}
 		},
 		methods:{
@@ -49,6 +52,8 @@
 				this.$get(this.ROOT_URL + "Edu/index/getSign").then(function(res){
 					_this.count = res.data.count;
 					_this.today = res.data.today;
+					_this.grade = res.data.grade;
+					_this.subject = res.data.subject;
 					// console.log(res);
 				});
 			}
@@ -60,7 +65,7 @@
 /*#07c160;*/
 .index_top_nav{height: 3.35rem;position: fixed;z-index: 2;top:0;left:0;display: block;width: 100%;line-height: 3.25rem;color:#333;font-size: 16px;background: #f1f1f1;border-bottom: 1px solid #efefef;}
 .index_xian4_mt{margin-top: 2.25rem;}
-.index_content{margin-top: 3.25rem;background: #fff;}
+.index_content{margin-top: 3.25rem;background: #fff;margin-bottom: 4rem;}
 .index_content:after{content:'';display:block;clear: both;}
 .study_time{font-size: 1.75rem;color:#111;font-weight: bold;text-align: center;padding-top: 2.25rem;}
 .study_time p{font-size:12px;color:#666;font-weight: normal;}
@@ -69,4 +74,5 @@
 .index_notice{text-align: center;line-height: 4rem;color:#333;}
 .index_notice i{margin-right: 0.25rem; }
 .start_study button{padding: 0 3.5rem;margin:0 auto;display: block;margin-top: 3rem;}
+.to_learing{text-align: center;font-size:12px;color:#333;margin-top: 1rem;}
 </style>

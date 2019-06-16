@@ -23,6 +23,17 @@ Stepper,
 Actionsheet,
 Card,
 Dialog,
+Swipe,
+SwipeItem,
+GoodsAction,
+GoodsActionBigBtn,
+GoodsActionMiniBtn,
+Sku,
+AddressList,
+AddressEdit,
+Area,
+SubmitBar,
+
 } from 'vant';
 Vue.use(Button);
 Vue.use(Cell);
@@ -47,3 +58,13 @@ Vue.use(Stepper);
 Vue.use(Actionsheet);
 Vue.use(Card);
 Vue.use(Dialog);
+Vue.use(Swipe);
+Vue.use(SwipeItem);
+Vue.use(GoodsAction);
+Vue.use(GoodsActionBigBtn);
+Vue.use(GoodsActionMiniBtn);
+Vue.use(Sku);
+Vue.use(AddressList);
+Vue.use(AddressEdit);
+Vue.use(Area);
+Vue.use(SubmitBar);

@@ -7,7 +7,7 @@ import '../public/style.css' // 公共类
 import '../public/fonts/iconfont.css' // 公共类
 // import './plugins/element.js' // element Ui 库
 import {formatDate} from './plugins/function.js' // 辅助js 库
-import {post,get,put,deletes,toJson,isEmpty,isWeiXin} from './plugins/http.js' // axios
+import {post,get,put,deletes,toJson,isEmpty,isWeiXin,choseWord} from './plugins/http.js' // axios
 
 //定义全局变量
 Vue.prototype.$post=post;
@@ -17,6 +17,7 @@ Vue.prototype.$delete=deletes;
 Vue.prototype.$toJson=toJson;
 Vue.prototype.$isEmpty=isEmpty;
 Vue.prototype.$isWeiXin=isWeiXin;
+Vue.prototype.$choseWord=choseWord;
 
 Vue.filter('formatDate', function (time) {
     var date = new Date(time*1000);
@@ -31,6 +32,12 @@ Vue.filter('formatDataAuto', function ([time,str]) {
 Vue.prototype.ROOT_URL = 'http://s.qingwuit.com/api/';
 
 Vue.config.productionTip = false
+
+router.beforeEach((to, from, next) => {
+  /* 路由发生变化修改页面title */
+  document.title = '青梧书院';
+  next()
+})
 
 new Vue({
   router,

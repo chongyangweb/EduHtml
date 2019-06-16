@@ -30,12 +30,12 @@
 				    checked-color="#07c160"
 				    :disabled="is_disabled"
 				  >
-				    {{index+1}}、 {{ item.title }}
+				    {{$choseWord(index)}}、 {{ item.title }}
 				  </van-checkbox>
 				</van-checkbox-group>
 
 				<van-radio-group v-model="radio" v-if="chose_type==1" @change="checkbox_group_change">
-				  <van-radio :disabled="is_disabled" v-for="(v,k) in answer" :name="v.id" checked-color="#07c160">{{k+1}}、{{v.title}}</van-radio>
+				  <van-radio :disabled="is_disabled" v-for="(v,k) in answer" :name="v.id" checked-color="#07c160">{{$choseWord(k)}}、{{v.title}}</van-radio>
 				</van-radio-group>
 			</div>
 		</div>
@@ -121,16 +121,19 @@
 				
 			},
 			next_question:function(){
-				var sort_now = localStorage.getItem('sort_now');
-				var error_num = localStorage.getItem('error_num');
-				localStorage.setItem('sort_now',parseInt(sort_now)+1);
-				localStorage.setItem('error_num',parseInt(error_num)+parseInt(this.is_error));
+				var error_sort_now = localStorage.getItem('error_sort_now');
+				var error_error_num = localStorage.getItem('error_error_num');
+				var error_list = localStorage.getItem('error_list');
+				localStorage.setItem('error_sort_now',parseInt(error_sort_now)+1);
+				localStorage.setItem('error_error_num',parseInt(error_error_num)+parseInt(this.is_error));
 
 				// 加入错题本
-				this.$post(this.ROOT_URL + "Edu/question/add_error_question",{question_id:this.question.id}).then(function(res){});
+				if(this.is_error==1){
+					this.$post(this.ROOT_URL + "Edu/question/add_error_question",{question_id:this.question.id}).then(function(res){});
+				}
 
-				if(this.question_num == localStorage.getItem('sort_now')){
-					this.$router.push({path:'/question/question_success'});
+				if(error_list.split(',').length == localStorage.getItem('error_sort_now')){
+					this.$router.push({path:'/question/question_error_success'});
 				}else{
 					this.$router.go(0);
 				}
@@ -140,20 +143,25 @@
 		mounted(){
 
 			// 判断做到第几题
-			var sort_now = localStorage.getItem('sort_now');
-			var error_num = localStorage.getItem('error_num');
-			if(this.$isEmpty(sort_now)){
-				localStorage.setItem('sort_now','0');
-				localStorage.setItem('error_num','0');
-				sort_now = 0;
+			var error_sort_now = localStorage.getItem('error_sort_now');
+			var error_error_num = localStorage.getItem('error_error_num');
+			var error_list = localStorage.getItem('error_list');
+			if(this.$isEmpty(error_sort_now)){
+				localStorage.setItem('error_sort_now','0');
+				localStorage.setItem('error_error_num','0');
+				localStorage.setItem('error_list','');
+				error_sort_now = 0;
 			}
 
-			this.sort_now = sort_now;
+			this.sort_now = error_sort_now;
 
 			var _this = this;
 
-			this.$post(this.ROOT_URL + "Edu/question/getQuestion",{sort_now:sort_now,error_num:error_num}).then(function(res){
-				console.log(res);
+			this.$post(this.ROOT_URL + "Edu/question/getQuestionError",{error_sort_now:error_sort_now,error_error_num:error_error_num,error_list:error_list}).then(function(res){
+				// console.log(res);
+				if(localStorage.getItem('error_list') == ''){
+					localStorage.setItem('error_list',res.data.error_list);
+				}
 				if(res.code == 500){
 					_this.$toast({position:'bottom',message:res.message});
 					_this.$router.push({path:'/'});

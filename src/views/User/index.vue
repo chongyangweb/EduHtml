@@ -2,7 +2,7 @@
 	<div class="edu">
 		<div class="person_bg">
 			<div class="person_top">
-				<div class="person_right_arrow"><i class="iconfont">&#xe667;</i></div>
+				<div class="person_right_arrow" @click="$toast('什么也没有')"><i class="iconfont">&#xe667;</i></div>
 				<div class="person_center">个人中心</div>
 				<div class="person_left_arrow">
 					<van-icon name="arrow-left" />
@@ -53,7 +53,9 @@
 			<van-cell title="等级" is-link :value="'lv'+user_extend.lev+ '·普通用户'" />
 			<van-cell title="当前花名" is-link value="李太白" />
 			<van-cell title="错题集锦" is-link  :value="error_question_num+' 道'" @click="make_error_question" />
-			<van-cell title="老师推荐" is-link  />
+			<van-cell title="清空错题" is-link  @click="clear_error_question" />
+			<van-cell title="老师推荐" is-link  @click="$router.push({path:'/shop/index/28'})" />
+			<van-cell title="配送地址设置" is-link  @click="$router.push({path:'/shop/address'})" />
 			<van-cell title="学习范围设置" is-link url="/user/learning_scope" />
 		</div>
 		
@@ -82,16 +84,31 @@
 		},
 		methods:{
 			make_error_question:function(){
+				var _this = this;
 				this.$dialog.confirm({
 				  title: '温馨提示',
 				  message: '你确定要重新将错题做一遍？'
 				}).then(() => {
 				  // on confirm
+				  if(_this.error_question_num == 0){
+				  	_this.$toast({postion:'bottom',message:'没有错题！'});
+				  }else{
+				  	_this.$router.push({path:'/question/question_error'});
+				  }
 				  
 				}).catch(() => {
 				  // on cancel
 				});
 			},
+			clear_error_question:function(){
+				var _this = this;
+				this.$get(this.ROOT_URL + "Edu/user/clear_error_question").then(function(res){
+					if(res.code == 200){
+						_this.error_question_num = 0
+						_this.$toast({postion:'bottom',message:'清空成功！'});
+					}
+				});
+			}
 		},
 		mounted(){
 			var _this = this;
@@ -100,7 +117,12 @@
 					_this.user_info = res.data;
 					_this.user_extend = res.data.extend;
 					_this.avatar = res.data.avatar;
-					_this.error_question_num = _this.user_extend.error_question.split(',').length;
+					if(_this.user_extend.error_question==''){
+						_this.error_question_num = 0;
+					}else{
+						_this.error_question_num = _this.user_extend.error_question.split(',').length;
+					}
+					
 				}
 			});
 

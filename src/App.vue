@@ -23,7 +23,7 @@ export default {
         isLogin = true;
       }
       if(this.$isWeiXin()){
-        this.$toast('微信游览器！');
+        // this.$toast('微信游览器！');
         if(!isLogin){
           location.href='http://s.qingwuit.com/api/Edu/wechat/getWechat/';
         }
