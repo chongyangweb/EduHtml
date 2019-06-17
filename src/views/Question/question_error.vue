@@ -130,6 +130,8 @@
 				// 加入错题本
 				if(this.is_error==1){
 					this.$post(this.ROOT_URL + "Edu/question/add_error_question",{question_id:this.question.id}).then(function(res){});
+				}else{
+					this.$post(this.ROOT_URL + "Edu/question/del_error_question",{id:this.question.id}).then(function(res){});
 				}
 
 				if(error_list.split(',').length == localStorage.getItem('error_sort_now')){
@@ -180,6 +182,9 @@
 							_this.chose_type = _this.chose_type+1;
 						}
 					}
+				}else if(res.code == 201){
+					_this.$toast('恭喜您，刷完所有题目，获得新的成就！');
+					_this.$router.push({path:'/'});
 				}else if(res.code == 201){
 					_this.$toast('恭喜您，刷完所有题目，获得新的成就！');
 					_this.$router.push({path:'/'});

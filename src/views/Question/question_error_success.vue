@@ -38,8 +38,8 @@
 			this.error_num = error_error_num;
 			this.$post(this.ROOT_URL + "Edu/question/getQuestionError",{error_sort_now:error_sort_now,error_error_num:error_error_num,error_list:error_list}).then(function(res){
 				if(res.code == 202){
-					localStorage.setItem('sort_now',0);
-					localStorage.setItem('error_num',0);
+					localStorage.setItem('error_sort_now',0);
+					localStorage.setItem('error_error_num',0);
 					localStorage.setItem('error_list','');
 				}
 			});

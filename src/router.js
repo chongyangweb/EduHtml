@@ -48,7 +48,7 @@ export default new Router({
     // 404 page must be placed at the end !!!
     // {path: '*', redirect: '/404', hidden: true },
     // {path: '/404',name: '404',component: Error404},
-    {path: '/question/index',name: 'question_index',component: QuestionIndex}, // 正常答题
+    {path: '/question/index/:id',name: 'question_index',component: QuestionIndex}, // 正常答题
     {path: '/question/question_error',name: 'question_error_index',component: QuestionError}, // 错题答题
     {path: '/question/question_success',name: 'question_success_index',component: QuestionSuccess},
     {path: '/question/question_error_success',name: 'question_error_success_index',component: QuestionErrorSuccess},

@@ -10,8 +10,10 @@
 			<div class="study_day_day">天</div>
 			<div class="index_notice"><div v-show="today"><i class="iconfont">&#xe693;</i>今天练题过了(完成)</div><div v-show="!today"><i class="iconfont">&#xe600;</i>今天没有练题(未完成)</div></div>
 			<div class="xian4 index_xian4_mt"></div>
-			<div class="start_study"><van-button type="primary" @click="$router.push({path:'/question/index'})">开始学习</van-button></div>
-			<div class="to_learing" @click="$router.push({path:'/user/learning_scope'})">学习范围设置-{{grade}}-{{subject}}</div>
+			<!-- <div class="start_study"><van-button type="primary" @click="$router.push({path:'/question/index'})">开始学习</van-button></div> -->
+			<div class="start_study"><van-button type="primary" @click="$router.push({path:'/question/index/1'})">地理练题</van-button></div>
+			<div class="start_study"><van-button type="primary" @click="$router.push({path:'/question/index/2'})">生物练题</van-button></div>
+			<!-- <div class="to_learing" @click="$router.push({path:'/user/learning_scope'})">学习范围设置-{{grade}}-{{subject}}</div> -->
 		</div>
 
 		<van-tabbar v-model="active" active-color="#07c160" route @change="barChange">

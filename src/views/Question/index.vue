@@ -160,7 +160,7 @@
 
 			var _this = this;
 
-			this.$post(this.ROOT_URL + "Edu/question/getQuestion",{sort_now:sort_now,error_num:error_num}).then(function(res){
+			this.$post(this.ROOT_URL + "Edu/question/getQuestion",{sort_now:sort_now,error_num:error_num,is_subject:this.$route.params.id}).then(function(res){
 				console.log(res);
 				if(res.code == 500){
 					_this.$toast({position:'bottom',message:res.message});
