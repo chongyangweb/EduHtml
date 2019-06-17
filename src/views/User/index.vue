@@ -50,13 +50,13 @@
 
 		<div class="person_other">
 			<van-cell title="活跃度" is-link :value="user_extend.money+' 点'" />
-			<van-cell title="等级" is-link :value="'lv'+user_extend.lev+ '·普通用户'" />
-			<van-cell title="当前花名" is-link value="李太白" />
+			<!-- <van-cell title="等级" is-link :value="'lv'+user_extend.lev+ '·普通用户'" /> -->
+			<!-- <van-cell title="当前花名" is-link value="李太白" /> -->
 			<van-cell title="错题集锦" is-link  :value="error_question_num+' 道'" @click="make_error_question" />
 			<van-cell title="清空错题" is-link  @click="clear_error_question" />
 			<van-cell title="老师推荐" is-link  @click="$router.push({path:'/shop/index/28'})" />
 			<van-cell title="配送地址设置" is-link  @click="$router.push({path:'/shop/address'})" />
-			<van-cell title="学习范围设置" is-link url="/user/learning_scope" />
+			<!-- <van-cell title="学习范围设置" is-link url="/user/learning_scope" /> -->
 		</div>
 		
 		<div class="xian4"></div>
