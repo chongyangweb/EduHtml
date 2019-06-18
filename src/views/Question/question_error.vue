@@ -43,8 +43,14 @@
 		<div class="question_foot">
 			<div class="question_num"><i class="iconfont">&#xeba6;</i>{{sort_now}}/{{question_num}}</div>
 			<div class="question_next" @click="confirm_question" v-show="is_confirm_question">确认</div>
-			<div class="question_next" @click="next_question" v-show="!is_confirm_question">下一题</div>
+			<div class="question_next" @click="next_question" v-show="!is_confirm_question && is_confirm_question2">下一题</div>
+			<div class="question_next" v-show="!is_confirm_question && !is_confirm_question2">下一题</div>
 		</div>
+
+		<!-- 答案解析 -->
+		<van-actionsheet v-model="analysis_show" title="答题解析">
+		  <p style="padding:1rem;" v-html="question.analysis"></p>
+		</van-actionsheet>
 		
 	</div>
 </template>
@@ -56,6 +62,7 @@
 				title:'题目练习',
 				checked:false,
 				list: [],
+				analysis_show:false,
 				question:{},
 				answer:[],
 				chose_type:0,// 单选还是多选
@@ -69,12 +76,13 @@
 				is_disabled:false,
 				material:{},
 				material_content:'',
+				is_confirm_question2:true,
 
 			}
 		},
 		methods:{
 			onClickRight:function(){
-				this.$toast('没有开放');
+				this.analysis_show=true;
 			},
 			checkbox_group_change:function(e){
 				// console.log(Array.isArray(e));
@@ -104,16 +112,15 @@
 				}
 				
 				// console.log(is_true_question,real_answer.length);
-				if(is_true_question != real_answer.length){
+				if(is_true_question != real_answer.length || real_answer.length==0){
+					this.is_confirm_question2 = false;
 					this.is_error = 1;
-				}
-
-				if(this.is_error == 1){
-					
+					this.is_confirm_question2 = true;
 					this.$toast('失败！');
 				}else{
 					this.$toast('成功了！');
 				}
+
 
 				this.is_confirm_question = false;
 				this.is_disabled = true;
@@ -121,24 +128,33 @@
 				
 			},
 			next_question:function(){
+				this.is_confirm_question2 = false;
 				var error_sort_now = localStorage.getItem('error_sort_now');
 				var error_error_num = localStorage.getItem('error_error_num');
 				var error_list = localStorage.getItem('error_list');
 				localStorage.setItem('error_sort_now',parseInt(error_sort_now)+1);
 				localStorage.setItem('error_error_num',parseInt(error_error_num)+parseInt(this.is_error));
-
+				var _this = this;
 				// 加入错题本
 				if(this.is_error==1){
-					this.$post(this.ROOT_URL + "Edu/question/add_error_question",{question_id:this.question.id}).then(function(res){});
+					this.$post(this.ROOT_URL + "Edu/question/add_error_question",{question_id:this.question.id}).then(function(res){
+						if(error_list.split(',').length == localStorage.getItem('error_sort_now')){
+							_this.$router.push({path:'/question/question_error_success'});
+						}else{
+							_this.$router.go(0);
+						}
+					});
 				}else{
-					this.$post(this.ROOT_URL + "Edu/question/del_error_question",{id:this.question.id}).then(function(res){});
+					this.$post(this.ROOT_URL + "Edu/question/del_error_question",{id:this.question.id}).then(function(res){
+						if(error_list.split(',').length == localStorage.getItem('error_sort_now')){
+							_this.$router.push({path:'/question/question_error_success'});
+						}else{
+							_this.$router.go(0);
+						}
+					});
 				}
 
-				if(error_list.split(',').length == localStorage.getItem('error_sort_now')){
-					this.$router.push({path:'/question/question_error_success'});
-				}else{
-					this.$router.go(0);
-				}
+				
 				
 			}
 		},

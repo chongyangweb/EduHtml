@@ -5,10 +5,13 @@
 		</div>
 		<!-- <div class="xian4 index_xian4_mt"></div> -->
 		<div class="index_content">
-			<div class="study_time">STUDY TIME<p>学习打卡记录</p></div>
+			<!-- <div class="study_time">STUDY TIME<p>学习打卡记录</p></div>
 			<div class="study_day">{{count}}</div>
 			<div class="study_day_day">天</div>
-			<div class="index_notice"><div v-show="today"><i class="iconfont">&#xe693;</i>今天练题过了(完成)</div><div v-show="!today"><i class="iconfont">&#xe600;</i>今天没有练题(未完成)</div></div>
+			<div class="index_notice"><div v-show="today"><i class="iconfont">&#xe693;</i>今天练题过了(完成)</div><div v-show="!today"><i class="iconfont">&#xe600;</i>今天没有练题(未完成)</div></div> -->
+			<div class="teacher_gg" v-html="gg">
+				
+			</div>
 			<div class="xian4 index_xian4_mt"></div>
 			<!-- <div class="start_study"><van-button type="primary" @click="$router.push({path:'/question/index'})">开始学习</van-button></div> -->
 			<div class="start_study"><van-button type="primary" @click="$router.push({path:'/question/index/1'})">地理练题</van-button></div>
@@ -33,6 +36,7 @@
 				count:0,
 				today:false,
 				grade:'其他',
+				gg:'',
 				subject:'其他',
 			}
 		},
@@ -56,6 +60,7 @@
 					_this.today = res.data.today;
 					_this.grade = res.data.grade;
 					_this.subject = res.data.subject;
+					_this.gg = res.data.server.content;
 					// console.log(res);
 				});
 			}
@@ -77,4 +82,5 @@
 .index_notice i{margin-right: 0.25rem; }
 .start_study button{padding: 0 3.5rem;margin:0 auto;display: block;margin-top: 3rem;}
 .to_learing{text-align: center;font-size:12px;color:#333;margin-top: 1rem;}
+.teacher_gg{padding-top: 1rem;}
 </style>

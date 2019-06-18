@@ -43,7 +43,8 @@
 		<div class="question_foot">
 			<div class="question_num"><i class="iconfont">&#xeba6;</i>{{sort_now}}/{{question_num}}</div>
 			<div class="question_next" @click="confirm_question" v-show="is_confirm_question">确认</div>
-			<div class="question_next" @click="next_question" v-show="!is_confirm_question">下一题</div>
+			<div class="question_next" @click="next_question" v-show="!is_confirm_question && is_confirm_question2">下一题</div>
+			<div class="question_next"  v-show="!is_confirm_question && !is_confirm_question2">下一题</div>
 		</div>
 
 		<!-- 答案解析 -->
@@ -75,6 +76,7 @@
 				is_disabled:false,
 				material:{},
 				material_content:'',
+				is_confirm_question2:true,
 
 			}
 		},
@@ -110,7 +112,7 @@
 				}
 				
 				// console.log(is_true_question,real_answer.length);
-				if(is_true_question != real_answer.length){
+				if(is_true_question != real_answer.length  || real_answer.length==0){
 					this.is_error = 1;
 				}
 
@@ -127,6 +129,8 @@
 				
 			},
 			next_question:function(){
+				var _this = this;
+				this.is_confirm_question2 = false;
 				var sort_now = localStorage.getItem('sort_now');
 				var error_num = localStorage.getItem('error_num');
 				localStorage.setItem('sort_now',parseInt(sort_now)+1);
@@ -134,14 +138,16 @@
 
 				// 加入错题本
 				if(this.is_error==1){
-					this.$post(this.ROOT_URL + "Edu/question/add_error_question",{question_id:this.question.id}).then(function(res){});
+					this.$post(this.ROOT_URL + "Edu/question/add_error_question",{question_id:this.question.id}).then(function(res){
+						if(_this.question_num == localStorage.getItem('sort_now')){
+							_this.$router.push({path:'/question/question_success'});
+						}else{
+							_this.$router.go(0);
+						}
+					});
 				}
 
-				if(this.question_num == localStorage.getItem('sort_now')){
-					this.$router.push({path:'/question/question_success'});
-				}else{
-					this.$router.go(0);
-				}
+				
 				
 			}
 		},

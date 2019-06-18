@@ -5,8 +5,8 @@
 			  title="送货地址"
 			  left-text="返回"
 			  right-text="首页"
-			  @click-left="$router.go(-1)"
-			  @click-right="$router.push({path:'/'})"
+			  @click-left="$router.push({path:'/shop/index/28'})"
+			  @click-right="$router.push({path:'/shop/index/28'})"
 			  left-arrow
 			/>
 		</div>

@@ -105,6 +105,9 @@
 				this.$get(this.ROOT_URL + "Edu/user/clear_error_question").then(function(res){
 					if(res.code == 200){
 						_this.error_question_num = 0
+						localStorage.setItem('error_sort_now',0);
+						localStorage.setItem('error_error_num',0);
+						localStorage.setItem('error_list','');
 						_this.$toast({postion:'bottom',message:'清空成功！'});
 					}
 				});

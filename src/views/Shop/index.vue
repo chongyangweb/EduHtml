@@ -3,11 +3,11 @@
 	<div class="edu">
 		<div class="question_top">
 			<van-nav-bar
-			  title="老师推荐"
+			  title="青梧书院"
 			  left-text="返回"
 			  right-text="首页"
-			  @click-left="$router.push({path:'/'})"
-			  @click-right="$router.push({path:'/'})"
+			  @click-left="$router.push({path:'/shop/index/28'})"
+			  @click-right="$router.push({path:'/shop/index/28'})"
 			  left-arrow
 			/>
 		</div>
